@@ -1,5 +1,7 @@
 package ro.pub.cs.systems.pdsd.practicaltest02var05;
 
+import org.w3c.dom.Text;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,15 +15,34 @@ import android.widget.Toast;
 
 public class PracticalTest02Var05MainActivity extends Activity {
 	
-	Button startButton;
-	EditText address, port, info;
+	Button startButton, serverConnectButton;
+	EditText address, port, info, serverPortEditText;
 	TextView infoTextView;
 	
 	ServerThread serverThread;
 	ClientThread clientThread;
 	
-	private GetInformationButtonClickListener getInformationButtonClickListener = new GetInformationButtonClickListener();
+	private ServerConnectButtonListener serverConnectButtonListener = new ServerConnectButtonListener();
 
+	private class ServerConnectButtonListener implements Button.OnClickListener {
+
+		@Override
+		public void onClick(View view) {
+			String serverPort = serverPortEditText.getText().toString();
+			Log.d("TAG", "Am apasat buton server " + serverPort);
+			if (serverPort == null || serverPort.isEmpty()) {
+				Toast.makeText(getApplicationContext(),
+						"Server port should be filled!", Toast.LENGTH_SHORT)
+						.show();
+				return;
+			}
+			
+			serverThread = new ServerThread();
+			serverThread.startServer(Integer.parseInt(serverPort));
+		}
+	}
+	
+	private GetInformationButtonClickListener getInformationButtonClickListener = new GetInformationButtonClickListener();
 	private class GetInformationButtonClickListener implements
 			Button.OnClickListener {
 
@@ -49,8 +70,8 @@ public class PracticalTest02Var05MainActivity extends Activity {
 			}
 			
 			if (serverThread == null || !serverThread.isAlive()) {
-				serverThread = new ServerThread();
-				serverThread.startServer(Integer.parseInt(clientPort));
+				Log.e("[MAIN Activity]", "There is no server to connect to!");
+			      return;
 			}
 			
 			
@@ -72,6 +93,9 @@ public class PracticalTest02Var05MainActivity extends Activity {
 		port = (EditText)findViewById(R.id.client_port_edit_text);
 		info = (EditText)findViewById(R.id.info);
 		infoTextView = (TextView)findViewById(R.id.infoTextView);
+		serverPortEditText = (EditText)findViewById(R.id.server_port_edit_text);
+		serverConnectButton = (Button)findViewById(R.id.connect_button_server);
+		serverConnectButton.setOnClickListener(serverConnectButtonListener);
 	}
 
 	@Override

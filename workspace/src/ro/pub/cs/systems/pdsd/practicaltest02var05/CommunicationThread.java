@@ -94,6 +94,7 @@ public class CommunicationThread extends Thread {
 					if (data.containsKey(parts[1])) {
 						MyClass clasa = data.get(parts[1]);
 						clasa.setTime(currentDateTime);
+						clasa.setStr(parts[2]);
 						result = "modified";
 					} else {
 						data.put(parts[1], new MyClass(parts[2],
