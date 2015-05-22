@@ -3,6 +3,7 @@ package ro.pub.cs.systems.pdsd.practicaltest02var05;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 import android.util.Log;
 
@@ -10,20 +11,22 @@ public class ServerThread extends Thread{
 	private boolean isRunning;
 	private ServerSocket serverSocket;
 	private int port;
+	private HashMap<String, MyClass> data = null;
 
 	public void startServer(int port) {
 		this.isRunning = true;
 		this.port = port;
+		this.data = new HashMap<String, MyClass>();
 		start();
 	}
 	
-//	public synchronized Meteo getMeteo() {
-//		return this.meteo;
-//	}
-//	
-//	public synchronized void setMeteo(Meteo meteo) {
-//		this.meteo = meteo;
-//	}
+	public synchronized void setData(String info, MyClass data) {
+		this.data.put(info, data);
+	}
+	
+	public synchronized HashMap<String, MyClass> getData() {
+		return data;
+	}
 
 	public void stopServer() {
 		isRunning = false;

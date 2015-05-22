@@ -4,16 +4,16 @@ import java.security.Timestamp;
 
 public class MyClass {
 	String mystring;
-	Timestamp time;
+	DateTime time;
 	
 	public MyClass() {};
 	
-	public MyClass(String str, Timestamp time){
+	public MyClass(String str, DateTime time){
 		this.mystring = str;
 		this.time = time;
 	}
 	
-	public void setTemp (String str){
+	public void setStr (String str){
 		this.mystring = str;
 	}
 	
@@ -21,11 +21,11 @@ public class MyClass {
 		return this.mystring;
 	}
 	
-	public void setTime (Timestamp time){
+	public void setTime (DateTime time){
 		this.time = time;
 	}
 	
-	public Timestamp getHum(){
+	public DateTime getTime(){
 		return this.time;
 	}
 }

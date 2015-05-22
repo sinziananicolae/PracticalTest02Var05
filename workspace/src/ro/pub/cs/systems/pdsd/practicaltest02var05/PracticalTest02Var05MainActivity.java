@@ -1,6 +1,5 @@
 package ro.pub.cs.systems.pdsd.practicaltest02var05;
 
-import ro.pub.cs.systems.pdsd.mypracticaltest2.ServerThread;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
